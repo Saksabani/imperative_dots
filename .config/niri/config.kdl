@@ -142,34 +142,34 @@ window-rule {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Session env import before portal/shell services
-spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
-spawn-sh-at-startup "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
+spawn-at-startup "sh" "-c" "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
+spawn-at-startup "sh" "-c" "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
 
 // Session services
 spawn-at-startup "polkit-gnome-authentication-agent-1"
 spawn-at-startup "swaync"
 spawn-at-startup "playerctld"
 spawn-at-startup "swww-daemon"
-spawn-at-startup "swayosd-server" "--top-margin" "0.9" "--style" "$HOME/.config/swayosd/style.css"
+spawn-at-startup "sh" "-c" "swayosd-server --top-margin 0.9 --style $HOME/.config/swayosd/style.css"
 
-// Core shell
-spawn-at-startup "quickshell" "-p" "~/.config/niri/scripts/quickshell/Main.qml"
-spawn-at-startup "quickshell" "-p" "~/.config/niri/scripts/quickshell/TopBar.qml"
+// Core shell (use $HOME: spawn-at-startup argv is not shell-expanded, so ~ breaks quickshell -p)
+spawn-at-startup "sh" "-c" "quickshell -p $HOME/.config/niri/scripts/quickshell/Main.qml"
+spawn-at-startup "sh" "-c" "quickshell -p $HOME/.config/niri/scripts/quickshell/TopBar.qml"
 
 // Idle management
 spawn-at-startup "swayidle" "-w" "timeout" "600" "loginctl lock-session" "timeout" "1200" "systemctl suspend" "before-sleep" "loginctl lock-session"
 
 // Clipboard
-spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
-spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
+spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
 
 // Scripts
-spawn-sh-at-startup "~/.config/niri/scripts/init.sh"
-spawn-sh-at-startup "~/.config/niri/scripts/settings_watcher.sh &"
-spawn-sh-at-startup "~/.config/niri/scripts/qs_manager.sh toggle guide &"
-spawn-sh-at-startup "python3 ~/.config/niri/scripts/quickshell/focustime/focus_daemon.py &"
-spawn-sh-at-startup "~/.config/niri/scripts/volume_listener.sh"
-spawn-sh-at-startup "~/.config/niri/scripts/update_notifier.sh"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/init.sh"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/settings_watcher.sh &"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle guide &"
+spawn-at-startup "sh" "-c" "python3 ~/.config/niri/scripts/quickshell/focustime/focus_daemon.py &"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/volume_listener.sh"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/update_notifier.sh"
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  ◈ KEYBINDINGS
@@ -198,31 +198,31 @@ binds {
     Mod+Shift+Down { set-window-height "+50"; }
 
     // ───────── QuickShell Controls ─────────
-    Mod+R { spawn "bash" "~/.config/niri/scripts/reload.sh"; }
-    Mod+C { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "clipboard"; }
-    Mod+P { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "movies"; }
-    Mod+D { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "applauncher"; }
-    Mod+Shift+S { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "settings"; }
-    Mod+Q { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "music"; }
-    Mod+B { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "battery"; }
-    Mod+W { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "wallpaper"; }
-    Mod+S { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "calendar"; }
-    Mod+N { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "network"; }
-    Mod+Shift+T { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "focustime"; }
-    Mod+V { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "volume"; }
-    Mod+H { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "guide"; }
-    Mod+M { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "monitors"; }
+    Mod+R { spawn "sh" "-c" "~/.config/niri/scripts/reload.sh"; }
+    Mod+C { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle clipboard"; }
+    Mod+P { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle movies"; }
+    Mod+D { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle applauncher"; }
+    Mod+Shift+S { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle settings"; }
+    Mod+Q { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle music"; }
+    Mod+B { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle battery"; }
+    Mod+W { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle wallpaper"; }
+    Mod+S { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle calendar"; }
+    Mod+N { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle network"; }
+    Mod+Shift+T { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle focustime"; }
+    Mod+V { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle volume"; }
+    Mod+H { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle guide"; }
+    Mod+M { spawn "sh" "-c" "~/.config/niri/scripts/qs_manager.sh toggle monitors"; }
 
     // ───────── System & Hardware ─────────
     Caps_Lock { spawn "swayosd-client" "--caps-lock"; }
     XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "lower"; }
     XF86MonBrightnessUp { spawn "swayosd-client" "--brightness" "raise"; }
-    Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh"; }
-    Shift+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--edit"; }
-    Mod+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--full"; }
-    Mod+Shift+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--full" "--edit"; }
-    XF86PowerOff { spawn "bash" "~/.config/niri/scripts/lock.sh"; }
-    Mod+L { spawn "bash" "~/.config/niri/scripts/lock.sh"; }
+    Print { spawn "sh" "-c" "~/.config/niri/scripts/screenshot.sh"; }
+    Shift+Print { spawn "sh" "-c" "~/.config/niri/scripts/screenshot.sh --edit"; }
+    Mod+Print { spawn "sh" "-c" "~/.config/niri/scripts/screenshot.sh --full"; }
+    Mod+Shift+Print { spawn "sh" "-c" "~/.config/niri/scripts/screenshot.sh --full --edit"; }
+    XF86PowerOff { spawn "sh" "-c" "~/.config/niri/scripts/lock.sh"; }
+    Mod+L { spawn "sh" "-c" "~/.config/niri/scripts/lock.sh"; }
 
     // ───────── Media & Audio ─────────
     Mod+Space { spawn "playerctl" "play-pause"; }
