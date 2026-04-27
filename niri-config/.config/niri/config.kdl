@@ -1,0 +1,257 @@
+// --------------------------------------------------------------------------------------
+//
+//   ██╗██╗  ██╗   ██╗ █████╗ ███╗   ███╗██╗██████╗  ██████╗ 
+//   ██║██║  ╚██╗ ██╔╝██╔══██╗████╗ ████║██║██╔══██╗██╔═══██╗
+//   ██║██║   ╚████╔╝ ███████║██╔████╔██║██║██████╔╝██║   ██║
+//   ██║██║    ╚██╔╝  ██╔══██║██║╚██╔╝██║██║██╔══██╗██║   ██║
+//   ██║███████╗██║   ██║  ██║██║ ╚═╝ ██║██║██║  ██║╚██████╔╝
+//   ╚═╝╚══════╝╚═╝   ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝ 
+//
+//   Niri configuration — translated from ilyamiro's Hyprland setup
+//   https://github.com/ilyamiro/imperative-dots
+//
+// --------------------------------------------------------------------------------------
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ ENVIRONMENT VARIABLES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+environment {
+    NIXOS_OZONE_WL "1"
+    QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "qt6ct"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+    GTK_USE_PORTAL "1"
+    GDK_BACKEND "wayland"
+    SDL_VIDEODRIVER "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    XCURSOR_THEME "Adwaita"
+    XCURSOR_SIZE "24"
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ INPUT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "grp:alt_shift_toggle"
+        }
+        track-layout "global"
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ MONITORS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Auto-detect monitors (equivalent to: monitor = , preferred, auto, 1.0)
+// Uncomment and customize for specific monitors:
+// output "eDP-1" {
+//     mode "1920x1080@60.0"
+//     scale 1.0
+//     position x=0 y=0
+// }
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ LAYOUT & DECORATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+layout {
+    gaps 4
+
+    border {
+        width 2
+        active-color "#f1b3e6"
+        inactive-color "#663560"
+    }
+
+    // Default column width — start at half screen
+    default-column-width { proportion 0.5; }
+
+    // Focus ring (disabled in favor of border, matching Hyprland config)
+    focus-ring {
+        off
+    }
+}
+
+// Window rounding
+window-rule {
+    geometry-corner-radius 4 4 4 4
+    clip-to-geometry true
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ NAMED WORKSPACES (preserves fixed 1-8 model from Hyprland)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+workspace "1" {}
+workspace "2" {}
+workspace "3" {}
+workspace "4" {}
+workspace "5" {}
+workspace "6" {}
+workspace "7" {}
+workspace "8" {}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ CURSOR
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+cursor {
+    hide-when-typing
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ ANIMATIONS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+animations {
+    // Niri has simpler animations than Hyprland
+    // Your QuickShell QML animations (morphing, fading) are preserved
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ WINDOW RULES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// QuickShell app launcher
+window-rule {
+    match title="app-launcher"
+    open-floating true
+}
+
+// QuickShell master container
+window-rule {
+    match title="qs-master"
+    open-floating true
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ AUTOSTART
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Session env import before portal/shell services
+spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
+spawn-sh-at-startup "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME"
+
+// Session services
+spawn-at-startup "polkit-gnome-authentication-agent-1"
+spawn-at-startup "swaync"
+spawn-at-startup "playerctld"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "swayosd-server" "--top-margin" "0.9" "--style" "$HOME/.config/swayosd/style.css"
+
+// Core shell
+spawn-at-startup "quickshell" "-p" "~/.config/niri/scripts/quickshell/Main.qml"
+spawn-at-startup "quickshell" "-p" "~/.config/niri/scripts/quickshell/TopBar.qml"
+
+// Idle management
+spawn-at-startup "swayidle" "-w" "timeout" "600" "loginctl lock-session" "timeout" "1200" "systemctl suspend" "before-sleep" "loginctl lock-session"
+
+// Clipboard
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+
+// Scripts
+spawn-sh-at-startup "~/.config/niri/scripts/init.sh"
+spawn-sh-at-startup "~/.config/niri/scripts/settings_watcher.sh &"
+spawn-sh-at-startup "~/.config/niri/scripts/qs_manager.sh toggle guide &"
+spawn-sh-at-startup "python3 ~/.config/niri/scripts/quickshell/focustime/focus_daemon.py &"
+spawn-sh-at-startup "~/.config/niri/scripts/volume_listener.sh"
+spawn-sh-at-startup "~/.config/niri/scripts/update_notifier.sh"
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ◈ KEYBINDINGS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+binds {
+    // ───────── Applications & Launchers ─────────
+    Mod+Return { spawn "kitty"; }
+    Mod+F { spawn "firefox"; }
+    Mod+E { spawn "nautilus"; }
+
+    // ───────── Window Management ─────────
+    Alt+F4 { close-window; }
+    Mod+Shift+F { toggle-window-floating; }
+    Mod+Left { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up { focus-window-up; }
+    Mod+Down { focus-window-down; }
+    Mod+Ctrl+Left { move-column-left; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+Up { move-window-up; }
+    Mod+Ctrl+Down { move-window-down; }
+    Mod+Shift+Left { set-column-width "-50"; }
+    Mod+Shift+Right { set-column-width "+50"; }
+    Mod+Shift+Up { set-window-height "-50"; }
+    Mod+Shift+Down { set-window-height "+50"; }
+
+    // ───────── QuickShell Controls ─────────
+    Mod+R { spawn "bash" "~/.config/niri/scripts/reload.sh"; }
+    Mod+C { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "clipboard"; }
+    Mod+P { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "movies"; }
+    Mod+D { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "applauncher"; }
+    Mod+Shift+S { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "settings"; }
+    Mod+Q { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "music"; }
+    Mod+B { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "battery"; }
+    Mod+W { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "wallpaper"; }
+    Mod+S { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "calendar"; }
+    Mod+N { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "network"; }
+    Mod+Shift+T { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "focustime"; }
+    Mod+V { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "volume"; }
+    Mod+H { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "guide"; }
+    Mod+M { spawn "bash" "~/.config/niri/scripts/qs_manager.sh" "toggle" "monitors"; }
+
+    // ───────── System & Hardware ─────────
+    Caps_Lock { spawn "swayosd-client" "--caps-lock"; }
+    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "lower"; }
+    XF86MonBrightnessUp { spawn "swayosd-client" "--brightness" "raise"; }
+    Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh"; }
+    Shift+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--edit"; }
+    Mod+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--full"; }
+    Mod+Shift+Print { spawn "bash" "~/.config/niri/scripts/screenshot.sh" "--full" "--edit"; }
+    XF86PowerOff { spawn "bash" "~/.config/niri/scripts/lock.sh"; }
+    Mod+L { spawn "bash" "~/.config/niri/scripts/lock.sh"; }
+
+    // ───────── Media & Audio ─────────
+    Mod+Space { spawn "playerctl" "play-pause"; }
+    XF86AudioPause { spawn "playerctl" "play-pause"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioMicMute { spawn "swayosd-client" "--input-volume" "mute-toggle"; }
+    XF86AudioMute { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86AudioLowerVolume { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioRaiseVolume { spawn "swayosd-client" "--output-volume" "raise"; }
+
+    // ───────── Workspaces ─────────
+    Mod+1 { focus-workspace "1"; }
+    Mod+2 { focus-workspace "2"; }
+    Mod+3 { focus-workspace "3"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+7 { focus-workspace "7"; }
+    Mod+8 { focus-workspace "8"; }
+
+    Mod+Shift+1 { move-window-to-workspace "1"; }
+    Mod+Shift+2 { move-window-to-workspace "2"; }
+    Mod+Shift+3 { move-window-to-workspace "3"; }
+    Mod+Shift+4 { move-window-to-workspace "4"; }
+    Mod+Shift+5 { move-window-to-workspace "5"; }
+    Mod+Shift+6 { move-window-to-workspace "6"; }
+    Mod+Shift+7 { move-window-to-workspace "7"; }
+    Mod+Shift+8 { move-window-to-workspace "8"; }
+
+    // ───────── Monitor Focus ─────────
+    Mod+Tab { focus-monitor-next; }
+}
